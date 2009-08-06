@@ -137,6 +137,22 @@ local time zone.  You can set this to something like ActiveSupport's TimeZone cl
   >> Chronic.parse("June 15 2006 at 5:45 AM")
   => Thu, 15 Jun 2006 05:45:00 UTC +00:00
 
+== UK DATE FORMAT:
+
+Where the date format leads to ambiguities, Chronic allows you to
+specify whether to prefer a UK (:little endian) or US (:middle endian)
+interpretation of dates, by setting the :endian_precedence.
+
+To prefer UK style date format (DD/MM/YYYY):
+
+  >> Chronic.parse '01/03/2009', :endian_precedence => [:little, :middle]
+  => Sun Mar 01 12:00:00 +0000 2009
+
+To prefer US style date format (MM/DD/YYYY) (the default):
+
+  >> Chronic.parse '01/03/2009', :endian_precedence => [:middle, :little]
+  => Sat Jan 03 12:00:00 +0000 2009
+
 == LIMITATIONS:
   
 Chronic uses Ruby's built in Time class for all time storage and computation. Because of this, only times that the Time class can handle will be properly parsed. Parsing for times outside of this range will simply return nil. Support for a wider range of times is planned for a future release.
